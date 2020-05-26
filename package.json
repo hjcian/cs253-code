@@ -4,7 +4,8 @@
   "description": "cs253 practice codes",
   "main": "index.js",
   "scripts": {
-    "l7": "nodemon lecture7-Cross-Site\\ Scripting\\ Defenses/server.ejs.js",
+    "l7-1": "nodemon lecture7-Cross-Site\\ Scripting\\ Defenses/server.ejs.js",
+    "l7-2": "nodemon lecture7-Cross-Site\\ Scripting\\ Defenses/server-xss-auditor.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +19,9 @@
   },
   "homepage": "https://github.com/hjcian/cs253-code#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "ejs": "^3.1.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "html-escape": "^2.0.0"
   }
 }
