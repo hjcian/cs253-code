@@ -1,0 +1,24 @@
+{
+  "name": "cs253-code",
+  "version": "1.0.0",
+  "description": "cs253 practice codes",
+  "main": "index.js",
+  "scripts": {
+    "l7": "nodemon lecture7-Cross-Site\\ Scripting\\ Defenses/server.ejs.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hjcian/cs253-code.git"
+  },
+  "author": "max.cian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hjcian/cs253-code/issues"
+  },
+  "homepage": "https://github.com/hjcian/cs253-code#readme",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1"
+  }
+}
