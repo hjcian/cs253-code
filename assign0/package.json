@@ -11,7 +11,9 @@
     "url": "https://github.com/stanford-web-security/discussion/issues"
   },
   "dependencies": {
-    "bl": "^4.0.2"
+    "bl": "^4.0.2",
+    "strftime": "^0.10.0",
+    "through2-map": "^3.0.0"
   },
   "devDependencies": {
     "snazzy": "^8.0.0",
