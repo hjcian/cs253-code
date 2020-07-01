@@ -1,11 +1,9 @@
 const express = require('express')
 const { createReadStream } = require('fs')
-// SAME AS
-// const fs = require('fs')
-// const createReadStream = fs.createReadStream
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const { randomBytes } = require('crypto')
+const htmlEscape = require('html-escape')
 
 const USERS = {
   max: '123',
@@ -27,11 +25,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser(COOKIES_SECRET))
 
 app.get('/', (req, res) => {
+  const source = htmlEscape(req.query.source)
+
+  console.log('source:', source)
   const username = SESSIONS[req.signedCookies.sessionID]
   console.log('login from:', username, req.cookies.sessionID)
   if (USERS[username]) {
     res.send(`
     Hi ${username}! Amount: ${BALANCES[username]}
+    <br>
+    You're come from ${source !== undefined ? `from ${source}` : ''}
     <br>
     <form method='POST' action='/transfer' >
       

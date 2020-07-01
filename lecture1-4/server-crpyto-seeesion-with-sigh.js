@@ -27,22 +27,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser(COOKIES_SECRET))
 
 app.get('/', (req, res) => {
+  // const username = req.cookies.username
+  // const username = req.signedCookies.username
+  // const username = SESSIONS[req.cookies.sessionID]
   const username = SESSIONS[req.signedCookies.sessionID]
   console.log('login from:', username, req.cookies.sessionID)
   if (USERS[username]) {
     res.send(`
     Hi ${username}! Amount: ${BALANCES[username]}
     <br>
-    <form method='POST' action='/transfer' >
-      
-      To User:
-      <input name='to' />
-    
-      Amount:
-      <input name='amount' />      
-      <input type='submit' value='Send' />
-    
-    </form>
     <a href='/logout'> Logout </a>
     `)
   } else {
@@ -55,10 +48,7 @@ app.post('/login', (req, res) => {
   const username = req.body.username
   if (USERS[username] === req.body.password) {
     nextSessionId = randomBytes(16).toString('base64')
-    res.cookie('sessionID', nextSessionId, {
-      signed: true,
-      sameSite: 'lax'
-    })
+    res.cookie('sessionID', nextSessionId, { signed: true })
     SESSIONS[nextSessionId] = username
 
     res.redirect('/')
@@ -67,34 +57,10 @@ app.post('/login', (req, res) => {
   }
 })
 
-app.post('/transfer', (req, res) => {
-  const sessionID = req.signedCookies.sessionID
-  const username = SESSIONS[sessionID]
-
-  if (!username) {
-    res.send('failed!')
-    return
-  }
-
-  const amount = Number(req.body.amount)
-  const to = req.body.to
-
-  if (!to || !USERS[to]) {
-    res.send('No User!')
-    return
-  }
-
-  BALANCES[username] -= amount
-  BALANCES[to] += amount
-  res.redirect('/')
-})
-
 app.get('/logout', (req, res) => {
   const sessionID = req.signedCookies.sessionID
   delete SESSIONS[sessionID]
-  res.clearCookie('sessionID', {
-    sameSite: 'lax'
-  })
+  res.clearCookie('sessionID')
   res.redirect('/')
 })
 
